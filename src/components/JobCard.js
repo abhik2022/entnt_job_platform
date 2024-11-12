@@ -30,6 +30,10 @@ const EnhancedJobCard = ({ job, onEdit, onDelete }) => {
         setIsDescriptionOpen(false);
     };
 
+    // Function to count words
+    const getWordCount = (text) => text.trim().split(/\s+/).length;
+    const descriptionWordCount = getWordCount(job.description);
+
     return (
         <>
             <Card
@@ -88,9 +92,11 @@ const EnhancedJobCard = ({ job, onEdit, onDelete }) => {
                     >
                         <p style={{ color: "blue", fontSize: "12px" }}>Description:</p>
                         {job.description.slice(0, 70)}...
-                        <span style={{ fontSize: "10px", color: "blue", cursor: 'pointer' }} onClick={handleDescriptionOpen}>
-                            Read More
-                        </span>
+                        {descriptionWordCount > 20 && (
+                            <span style={{ fontSize: "10px", color: "blue", cursor: 'pointer' }} onClick={handleDescriptionOpen}>
+                                Read More
+                            </span>
+                        )}
                     </Typography>
 
                     {/* Additional Info */}
