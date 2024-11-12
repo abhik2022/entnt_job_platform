@@ -1,11 +1,10 @@
-// src/store/index.js
-import { configureStore, createSlice } from '@reduxjs/toolkit'; 
 
 const dummyJobs = [
     { 
         id: 1, 
         title: 'Software Engineer', 
-        description: 'Develop and maintain web applications.',
+        description: 'l.',
+        
         candidates: 3, 
         applicants: [
             { 
@@ -198,61 +197,5 @@ const dummyJobs = [
     }
 ];
 
-localStorage.setItem('jobs', JSON.stringify(dummyJobs));
 
-// Load jobs from local storage or use dummy data if not available
-const loadJobs = () => {
-    const storedJobs = JSON.parse(localStorage.getItem('jobs'));
-    console.log("stored jobs are:", storedJobs);
-    if (!storedJobs) {
-        localStorage.setItem('jobs', JSON.stringify(dummyJobs));
-        return dummyJobs;
-    }
-    return storedJobs;
-};
-
-// Redux slice for jobs and candidates
-const jobSlice = createSlice({
-    name: 'jobs',
-    initialState: loadJobs(),
-    reducers: {
-        addJob: (state, action) => {
-            state.push(action.payload);
-        },
-        editJob: (state, action) => {
-            const index = state.findIndex(job => job.id === action.payload.id);
-            if (index !== -1) state[index] = { ...state[index], ...action.payload };
-        },
-        deleteJob: (state, action) => {
-            return state.filter(job => job.id !== action.payload);
-        },
-        updateJobCandidates: (state, action) => {
-            const job = state.find(job => job.id === action.payload.jobId);
-            if (job) {
-                job.applicants.push(action.payload.candidate);
-            }
-        },
-        updateCandidateStatus: (state, action) => {
-            const job = state.find(job => job.id === action.payload.jobId);
-            if (job) {
-                const candidate = job.applicants.find(cand => cand.id === action.payload.candidateId);
-                if (candidate) {
-                    candidate.status = action.payload.status;
-                }
-            }
-        },
-    },
-});
- 
-
-export const { addJob, editJob, deleteJob, updateJobCandidates, updateCandidateStatus } = jobSlice.actions;
-
-const store = configureStore({
-    reducer: { jobs: jobSlice.reducer },
-});
-
-store.subscribe(() => {
-    localStorage.setItem('jobs', JSON.stringify(store.getState().jobs));
-});
-
-export default store;
+export default dummyJobs;

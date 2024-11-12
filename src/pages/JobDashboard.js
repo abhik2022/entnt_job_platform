@@ -1,87 +1,71 @@
+
 // src/pages/JobDashboard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Container, Stack } from '@mui/material';  // Import Stack from MUI
-import { addJob, editJob, deleteJob } from '../store';
-import JobCard from '../components/JobCard';
+import { Box, Typography } from '@mui/material';
+import { addJob, editJob, deleteJob } from '../store/store';
+import HeroSection from '../components/JobDashboard/HeroSection';
+import JobList from '../components/JobDashboard/JobList';
 import JobFormModal from '../components/JobFormModal';
+import Footer from '../components/JobDashboard/Footer'
 
 const JobDashboard = () => {
-    // Fetching jobs from the Redux store
-    const jobs = useSelector(state => state.jobs); // Make sure this is pulling from the correct slice of state
+    const jobs = useSelector(state => state.jobs);
     const dispatch = useDispatch();
     const [isModalOpen, setModalOpen] = useState(false);
     const [editingJob, setEditingJob] = useState(null);
 
-    console.log("Jobs from Redux:", jobs);
-
-    // Function to update the localStorage
-    const updateLocalStorage = (updatedJobs) => {
-        localStorage.setItem('jobs', JSON.stringify(updatedJobs));
-    };
+    useEffect(() => {
+        localStorage.setItem('jobs', JSON.stringify(jobs));
+    }, [jobs]);
 
     const handleAddJob = () => {
-        setEditingJob(null);  // Reset editing state to null for a new job
+        setEditingJob(null);
         setModalOpen(true);
     };
 
     const handleSaveJob = (job) => {
         if (editingJob) {
-            // If we are editing an existing job, we pass the updated job object.
             dispatch(editJob({ ...editingJob, ...job }));
         } else {
-            // If there is no editingJob, it's a new job, so we add a new one.
             dispatch(addJob({ ...job, id: Date.now() }));
         }
-        
-        // Update localStorage after the job is saved/added
-        updateLocalStorage(jobs);
-
-        setModalOpen(false);  // Close the modal after saving
+        setModalOpen(false);
     };
 
     const handleEditJob = (job) => {
-        setEditingJob(job);  // Set the job that is being edited
-        setModalOpen(true);   // Open the modal for editing
+        setEditingJob(job);
+        setModalOpen(true);
     };
 
     const handleDeleteJob = (id) => {
-        dispatch(deleteJob(id));  // Dispatch the delete action for the job
-        
-        // After deletion, update localStorage
-        updateLocalStorage(jobs);
+        dispatch(deleteJob(id));
     };
 
     return (
-        <Container>
-            <Button variant="contained" color="primary" onClick={handleAddJob}>Add Job</Button>
-            <Stack 
-                direction="row" 
-                spacing={2} 
-                flexWrap="wrap" 
-                sx={{ marginTop: '20px' }}  // Stack properties
-            >
-                {jobs && jobs.length > 0 ? (
-                    jobs.map(job => (
-                        <JobCard
-                            job={job}
-                            onEdit={() => handleEditJob(job)}  // Pass the job to edit
-                            onDelete={() => handleDeleteJob(job.id)}  // Pass the job ID to delete
-                            key={job.id}
-                        />
-                    ))
-                ) : (
-                    <p>No job postings available</p>
-                )}
-            </Stack>
-            <JobFormModal 
-                open={isModalOpen} 
-                onClose={() => setModalOpen(false)} 
-                onSave={handleSaveJob} 
-                job={editingJob}  // Pass the job details being edited or null for a new job
+        <Box sx={{ padding: '0px', backgroundColor: '#f1f0f3' }}>
+            <HeroSection onAddJob={handleAddJob} />
+
+            <hr />
+
+            <Typography variant="h2" color="#1565c0" sx={{textAlign:'center', fontWeight: 'bold', marginBottom: '25px' ,  marginTop:'100px'}}>
+                Available Jobs!
+            </Typography>
+
+            <JobList jobs={jobs} onEdit={handleEditJob} onDelete={handleDeleteJob} />
+
+            <JobFormModal
+                open={isModalOpen}
+                onClose={() => setModalOpen(false)}
+                onSave={handleSaveJob}
+                job={editingJob}
             />
-        </Container>
+            <Footer />
+        </Box>
     );
 };
 
 export default JobDashboard;
+
+
+// dark - text - #1565c0
