@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Job-Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Table of Contents
+1. [About](#About)
+2. [Installation](#installation)
+3. [Tech Stack](#tech-stack)
+4. [Features](#features)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### About
+The **JobPortal** is a user-friendly React application where an admin can manage job postings, track candidates who apply for those jobs, and create job-specific assessments. The platform will help streamline the hiring process by allowing admins to post jobs, review candidate details, and assign tailored assessments for each open position.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run the application locally:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/abhik2022/entnt_job_platform.git
+   cd entnt_job_platform
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Add node modules**:
+   ```bash
+     npm install
+   
+3. **to run locally**:
+   ```bash
+      npm run start
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Dashboard for Managing Job Postings**:
+   - An admin interface to monitor and edit job listings, each including:
+     - Job title
+     - Job description
+     - Number of candidates who applied
+   - Admin can add, edit, or delete job postings as needed.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+2. **Candidate Tracking & Details Page**:
+   - A detailed view of candidates applying for each job:
+     - Candidate name, application date, and status (e.g., "Under Review," "Interview Scheduled").
+   - Clicking on a candidate opens a profile page displaying:
+     - Candidate’s profile details (e.g., name, email, contact information, skills, and experience)
+     - Resume preview or download link
+     - Option to update application status
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Job-Specific Test/Assessment Creation**:
+   - Admins can create unique, job-specific assessments:
+     - Select a job from a dropdown menu to associate it with an assessment.
+     - Multiple-choice assessment for the selected position
+     - Add, edit, or delete questions and answers as needed
+   -  each job has a distinct, custom assessment.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **User Interface & User Experience**:
+   - A responsive interface optimized for both desktop and mobile views.
+   - Clean, consistent design utilizing Material UI.
+   - Efficient state management using Redux.
 
-### Code Splitting
+### Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Frontend**: React, React Router, Redux
+- **UI Library**: Material UI for a polished, consistent look
+- **Data management**: Use local storage for efficient data management.
